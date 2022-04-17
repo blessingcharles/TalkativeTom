@@ -11,6 +11,7 @@ const express_1 = __importDefault(require("express"));
 const type_graphql_1 = require("type-graphql");
 const mikro_orm_config_1 = __importDefault(require("./mikro-orm.config"));
 const post_1 = require("./resolvers/post");
+const user_1 = require("./resolvers/user");
 const path_1 = __importDefault(require("path"));
 (0, dotenv_1.config)({ path: path_1.default.join(__dirname + "/.env") });
 console.info(path_1.default.join(__dirname + "/.env"), process.env.PORT);
@@ -20,7 +21,7 @@ const __init__ = async () => {
     const app = (0, express_1.default)();
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: await (0, type_graphql_1.buildSchema)({
-            resolvers: [post_1.PostResolver],
+            resolvers: [post_1.PostResolver, user_1.UserResolver],
             validate: false,
         }),
         context: () => ({ em: orm.em }),
